@@ -1,9 +1,8 @@
 #!usr/bin/python3
 """ fabric module to push files"""
-
-from fabric.api import run, put, local, env
-from datetime import datetime
 import os
+from fabric.api import local
+from datetime import datetime
 
 
 def do_pack():
