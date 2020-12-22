@@ -3,10 +3,14 @@
 that distributes an archive to your web servers\
 using the function do_deploy """
 
-from fabric.api import run, local, put, env
+from fabric.api import *
 from os.path import exists
 from datetime import datetime
+from fabric.contrib.console import confirm
 env.hosts = ['104.196.106.105', '34.75.232.120']
+env.user = "ubuntu"
+env.warn_only = True
+
 
 def do_pack():
     """ generates a .tgz archive from the contents of the web_static folder"""
