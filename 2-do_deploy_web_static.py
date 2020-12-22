@@ -5,7 +5,7 @@ that distributes an archive to your web servers,
 from fabric.api import *
 from fabric.operations import run, put, sudo
 import os.path
-env.hosts = ['104.196.106.105', '34.75.232.120']
+env.hosts = ['104.196.106.105', '34.75.199.74']
 env.user = 'ubuntu'
 
 
@@ -17,17 +17,18 @@ def do_deploy(archive_path):
         return False
 
     try:
-        file = archive_path.split(".")[0]
+        file = archive_path.split("/")[-1]
+        name = file.split(".")[0]
         tmp = ("/data/web_static/releases/")
 
         put(archive_path, "/tmp/")
-        run("sudo mkdir -p {}".format(tmp, file))
-        run("sudo tar -xzf /tmp/{} -C {}".format(file, tmp))
+        run("sudo mkdir -p {}{}".format(tmp, name))
+        run("sudo tar -xzf /tmp/{} -C {}{}".format(name, tmp, name))
         run("sudo rm /tmp/{}".format(file))
-        run("sudo mv {}/web_static/* {}/".format(tmp, file))
-        run("sudo rm -rf {}/web_static".format(tmp, file))
+        run("sudo mv {}{}/web_static/* {}/".format(tmp, name, name))
+        run("sudo rm -rf {}{}/web_static".format(tmp, name))
         run('sudo rm -rf /data/web_static/current')
-        run("sudo ln -s {} /data/web_static/current".format(tmp, file))
+        run("sudo ln -s {}{} /data/web_static/current".format(tmp, name))
         return True
     except Exception:
         return False
