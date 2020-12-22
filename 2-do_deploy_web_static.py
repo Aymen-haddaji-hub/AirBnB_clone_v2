@@ -5,7 +5,16 @@ using the function do_deploy """
 
 from fabric.api import run, local, put, env
 from os.path import exists
+from datetime import datetime
 env.hosts = ['104.196.106.105', '34.75.232.120']
+
+def do_pack():
+    """ generates a .tgz archive from the contents of the web_static folder"""
+    date = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    filepath = "versions/web_static_{}.tgz".format(date)
+    local("mkdir -p versions")
+    local("tar -cvzf {} web_static".format(filepath))
+    return filepath
 
 
 def do_deploy(archive_path=None):
