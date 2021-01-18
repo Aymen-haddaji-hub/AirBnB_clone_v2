@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ minimal Flask application 
-    that return a string"""
+    that return a string """
 
 
 from flask import Flask
