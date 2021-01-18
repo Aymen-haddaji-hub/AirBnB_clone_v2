@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" minimal Flask application 
+""" minimal Flask application
     that return a string """
 
 
