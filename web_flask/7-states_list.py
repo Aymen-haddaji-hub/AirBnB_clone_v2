@@ -6,6 +6,9 @@
 from flask import Flask
 from flask import abort
 from flask import render_template
+from models.state import State
+from models import storage
+
 
 app = Flask(__name__)
 
@@ -88,14 +91,9 @@ def tear_down(self):
     storage.close()
 
 
-@app.route('/states_list', strict_slashes=False)
-def list_states():
-    """lists states from database
-    Returns:
-        HTML
-    """
-    states = storage.all('State')
-    return render_template('7-states_list.html', states=states)
+@app.route("/states_list")
+def states_list():
+    return render_template('7-states_list.html', states=storage.all('State'))
 
 
 if __name__ == '__main__':
