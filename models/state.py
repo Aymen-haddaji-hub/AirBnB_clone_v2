@@ -33,6 +33,7 @@ class State(BaseModel, Base):
             equals to the current State.id
             """
             list_cities = []
+            city_obj = []
             all_cities = models.storage.all(City)
             for city_obj in all_cities.items():
                 if city_obj.state_id == self.id:
